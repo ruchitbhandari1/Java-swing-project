@@ -109,7 +109,7 @@ public class ChangePin implements ActionListener {
             new Dashboard(id);
         } else if (ae.getSource() == confirm_Button) {
 
-            if (oldPin.isEmpty() || newPin.isEmpty() || renew.isEmpty() || (!newPin.equals(renew))) {
+            if (!validatePin(oldPin) || !validatePin(newPin) || !validatePin(renew) || (!newPin.equals(renew))) {
 
                 // --------POPUP SUCCESS ---------
 
@@ -117,9 +117,13 @@ public class ChangePin implements ActionListener {
                 error_Frame = new JFrame("Error");
                 ok_Button = new JButton("OK");
 
-                if(!newPin.equals(renew)){
+                if (!validatePin(oldPin)) {
+                    error_Label = new JLabel("Enter valid 4-digit old pin");
+                } else if (!validatePin(newPin) || !validatePin(renew)) {
+                    error_Label = new JLabel("Enter valid 4-digit new pin");
+                } else if (!newPin.equals(renew)) {
                     error_Label = new JLabel("Re-enter same pin");
-                }else{
+                } else {
                     error_Label = new JLabel("Fill all fields correctly");
                 }
 
@@ -251,5 +255,94 @@ public class ChangePin implements ActionListener {
         }
 
     }
+
+    public static boolean validateEmail(String email) {
+        if (email == null || email.isEmpty()) {
+            return false;
+        }
+        if (email.matches("^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$")) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public static boolean validateMobile(String mobile) {
+        if (mobile == null || mobile.isEmpty()) {
+            return false;
+        }
+        if (mobile.matches("[6-9]\\d{9}")) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public static boolean validatePin(String pin) {
+        if (pin == null || pin.isEmpty()) {
+            return false;
+        }
+        if (pin.matches("[0-9]\\d{3}")) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public static boolean validateAmount(String amount) {
+        if (amount == null || amount.isEmpty()) {
+            return false;
+        }
+        if (amount.matches("[0-9]{0,7}")) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public static boolean validateAccountNo(String ac_no) {
+        if (ac_no == null || ac_no.isEmpty()) {
+            return false;
+        }
+        if (ac_no.matches("d{15}")) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public static boolean validateName(String name) {
+        if (name == null || name.isEmpty()) {
+            return false;
+        }
+        if (name.matches("[a-zA-Z]{3,20}")) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public static boolean validateUserName(String name) {
+        if (name == null || name.isEmpty()) {
+            return false;
+        }
+        if (name.matches("[a-zA-Z0-9_]{3,20}")) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public static boolean validatePassword(String password) {
+        if (password == null || password.isEmpty()) {
+            return false;
+        }
+        if (password.matches("[a-zA-Z0-9@]{3,20}")) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 }
 
